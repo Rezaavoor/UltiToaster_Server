@@ -15,7 +15,7 @@ router.get("/motors/:id", (req, res) => {
   //pushMotor pushes the bread to the toaster
   //liftMotor lifts down the toaster handle to start toasting
 });
-// const motor = new piGpio(17, { mode: piGpio.OUTPUT });
+const motor = new piGpio(17, { mode: piGpio.OUTPUT });
 router.get("/motor/:duration", (req, res) => {
   const dc = (parseInt(req.params.duration) * 255) / 100;
   motor.pwmWrite(Math.floor(dc));
