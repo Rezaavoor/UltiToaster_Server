@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { GpioOnoff } = require("onoff");
+const { Gpio: GpioOnoff } = require("onoff");
 const { Gpio } = require("pigpio");
 
 const LED = new GpioOnoff(4, "out");
