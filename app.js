@@ -19,6 +19,9 @@ app.get('/toast', (req, res) => {
 app.get('/schedule', (req, res) => {
   res.send('schedule')
 })
+app.get('/ok',(req,res)=>{
+    res.send('ok')
+})
 app.use('/api', require('./routes/api'))
 
 
