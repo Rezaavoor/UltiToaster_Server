@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-const Gpio = require('pigpio').Gpio;
 const app = express()
 app.use(cors())
 // const logger = (req, res, next) => {
