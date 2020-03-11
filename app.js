@@ -1,4 +1,6 @@
 const express = require('express')
+const tcpPortUsed = require('tcp-port-used')
+const Gpio = require('pigpio').Gpio;
 const cors = require('cors')
 const app = express()
 app.use(cors())
@@ -7,6 +9,23 @@ app.use(cors())
 //     next()
 // }
 // app.use(logger)
+
+const led = new Gpio(4, { mode: Gpio.OUTPUT })
+const clientConnectionChecker = setInterval(() => {
+	tcpPortUsed.check(3000, '127.0.0.1').then(inUse => {
+		console.log('wating for the client...')
+		led.digitalWrite(1) // show that server is running and it is waiting for the client
+		if (inUse) {
+			setTimeout(() => {
+				console.log('client is now online on port 3000!')
+				setInterval(() => {
+					led.digitalWrite(led.digitalRead() ^ 1); // show that client is also running
+				}, 1000)
+				clearInterval(clientConnectionChecker)
+			}, 5900)
+		}
+	})
+}, 6000)
 
 app.get('/', (req, res) => {
 	res.send('here are your orders: [list of orders]')
@@ -20,7 +39,6 @@ app.get('/schedule', (req, res) => {
 	res.send('schedule')
 })
 app.get('/ok', (req, res) => {
-	console.log(req.params.test)
 	res.send('ok')
 })
 
