@@ -5,15 +5,19 @@
   "main": "index.js",
   "scripts": {
     "start": "node app",
-    "dev": "nodemon app"
+    "server": "nodemon app",
+    "client": "npm start --prefix UltiToaster_App",
+    "dev": "concurrently \"sudo npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^5.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "pigpio": "^2.0.1"
+    "pigpio": "^2.0.1",
+    "tcp-port-used": "^1.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
