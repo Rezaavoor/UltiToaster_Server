@@ -36,4 +36,12 @@ router.get("/switch/:switch/:state", (req, res) => {
 	res.send(`Switch ${switchIndex} status changed to: ${state}`);
 })
 
+const POWER = new Gpio(27, { mode: Gpio.OUTPUT })
+router.get("/on", (req, res) => {
+	POWER.digitalWrite(1);
+	setTimeout(() => {
+		POWER.digitalWrite(0)
+	}, 5000)
+})
+
 module.exports = router;
