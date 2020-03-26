@@ -10,7 +10,7 @@ const motors = {
 	5: new Gpio(9, { mode: Gpio.OUTPUT }),
 }
 router.get("/motor/:motor/:speed/:time", (req, res) => {
-	const time = parseInt(req.params.time) * 1000 //milliseconds
+	const time = parseInt(parseFloat(req.params.time) * 1000.0) //milliseconds
 	const motorIndex = parseInt(req.params.motor)
 	const dc = (parseInt(req.params.speed) * 10) + 1500; //dutycycle
 	const motor = motors[motorIndex];
@@ -42,6 +42,7 @@ router.get("/on/:time", (req, res) => {
 	POWER.digitalWrite(1);
 	setTimeout(() => {
 		POWER.digitalWrite(0)
+		res.send("it turned off now")
 	}, time)
 })
 
