@@ -37,11 +37,12 @@ router.get("/switch/:switch/:state", (req, res) => {
 })
 
 const POWER = new Gpio(27, { mode: Gpio.OUTPUT })
-router.get("/on", (req, res) => {
+router.get("/on/:time", (req, res) => {
+	const time = parseInt(req.params.time) * 1000 //milliseconds
 	POWER.digitalWrite(1);
 	setTimeout(() => {
 		POWER.digitalWrite(0)
-	}, 5000)
+	}, time)
 })
 
 module.exports = router;
